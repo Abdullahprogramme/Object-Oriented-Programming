@@ -1,0 +1,9 @@
+Question: Why does modifying the original object affect the shallow copy but not the deep copy?
+
+Answer: A shallow copy only copies the primitive data types but for dynamically alotted memory it simply points the second (new) object to the
+previous one so they both are pointing to one single object hence altering one effects the other. This doesn't happen in Deep copy since it makes a new pointer variable pointing to new memory.
+
+Note: I have done both tasks 1 and 2 in the same files which are as stated;
+1. DynamicArray.hpp
+2. Task1.cpp
+3. DynamicArray.cpp

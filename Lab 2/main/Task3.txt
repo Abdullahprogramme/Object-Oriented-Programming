@@ -1,0 +1,3 @@
+Question: Why do we use a friend function instead of a regular member function here?
+
+Answer: We use friend function so we can access the private attributes of the Fraction class without setting up the two more types of functions called getters and setters.
