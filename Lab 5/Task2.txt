@@ -1,0 +1,5 @@
+Q. Why does the MemoryResource constructor run before the NetworkBuffer constructor?
+
+Ans. It is because in the derived class the base class needs to be constructed first as the derived class will extend from it.
+Since the base class is called first it's constructor is called before than the derived class constructor hence the message order.
+Same but in reversed order with the destructor as the derived class is finished first and then the base class.
