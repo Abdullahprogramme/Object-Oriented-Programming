@@ -10,8 +10,10 @@ Stack::Stack(int capacity) : capacity(capacity), top(-1) {
 Stack::~Stack() {
     for (int i = 0; i < capacity; i++) {
         delete stack[i];
+        cout << "Deleted room " << i << endl;
     }
     delete[] stack;
+    cout << "Deleted stack" << endl;
 }
 
 void Stack::push(Room* room) { 
