@@ -15,8 +15,10 @@ Enemy_Queue::Enemy_Queue(int size) {
 Enemy_Queue::~Enemy_Queue() {
     for (int i = 0; i < capacity; i++) {
         delete enemy_array[i];
+        cout << "Deleted enemy " << i << endl;
     }
     delete[] enemy_array;
+    cout << "Deleted enemy array" << endl;
 }
 
 void Enemy_Queue::enqueue(Enemy* enemy) {
