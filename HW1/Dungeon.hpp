@@ -14,8 +14,8 @@ using namespace std;
 
 class Dungeon {
     private:
-        DLL* dungeon;
-        DLL* To_Check;
+        DLL* dungeon; // actual dungeon
+        DLL* To_Check; // Just made to check the end of the game
         Room* current_room;
         Player* player;
         Stack* room_stack;
