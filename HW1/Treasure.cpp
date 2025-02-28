@@ -1,5 +1,6 @@
 #include "Treasure.hpp"
 
+#include <iostream>
 using namespace std;
 
 Treasure::Treasure() {
@@ -7,7 +8,7 @@ Treasure::Treasure() {
     description = "";
 }
 
-Treasure::~Treasure() {}
+Treasure::~Treasure() { cout << "Deleted treasure" << endl; }
 
 string Treasure::getName() const {
     return name;
