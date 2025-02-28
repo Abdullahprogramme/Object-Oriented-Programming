@@ -32,6 +32,7 @@ class Player {
         int getMoves();
         void setMoves(int moves);
         void setCurrentWeapon(Treasure* current_weapon);
+        Treasure* getCurrentWeapon() { return current_weapon; }
         Inventory* getInventory();
 
 
