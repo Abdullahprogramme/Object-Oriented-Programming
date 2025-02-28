@@ -10,6 +10,10 @@ class DLL_node {
         Room* room;
         DLL_node* next;
         DLL_node* previous;
+
+        DLL_node() {
+            delete room; // Free the memory allocated for the Room object
+        }
 };
 
 
