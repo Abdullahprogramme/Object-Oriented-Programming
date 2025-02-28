@@ -21,12 +21,15 @@ Dungeon::Dungeon() {
 
 Dungeon::~Dungeon() {
     delete dungeon;
+    delete To_Check;
     delete player;
     delete room_stack;
+    cout << "Deleted dungeon" << endl;
 }
 
 void Dungeon::add_room(Room* room) {
     dungeon->add_room(room);
+    To_Check->add_room(room);
 }
 
 void Dungeon::next_room() {
@@ -53,8 +56,8 @@ void Dungeon::previous_to_check() {
 
 void Dungeon::show_choices() {
     cout << "--------------------------------" << endl;
-    cout << left << "Room Name" << setw(20) << "Room Description" << endl;
-    cout << "You are in the " << current_room->getName() << setw(20) << current_room->getDescription() << endl << endl;
+    cout << left << setw(20) << "Room Name" << setw(20) << "Room Description" << endl;
+    cout << setw(20) << "You are in the " << current_room->getName() << setw(20) << current_room->getDescription() << endl << endl;
     cout << "What would you like to do? Enter the number of the choice" << endl;
     cout << "1. Attack enemies" << endl;
     cout << "2. Move to previous room" << endl;
@@ -62,6 +65,8 @@ void Dungeon::show_choices() {
     cout << "4. Show inventory" << endl;
     cout << "5. Use item" << endl;
     cout << "6. Show player stats" << endl;
+    cout << "7. Show enemies in the room" << endl;
+    cout << "--------------------------------" << endl;
     cout << "Enter your choice: ";
     int choice;
     
@@ -69,7 +74,6 @@ void Dungeon::show_choices() {
         cin >> choice;
         switch (choice) {
             case 1:
-                current_room->printEnemies();
                 current_room->attackEnemies(player);
                 break;
             case 2:
@@ -93,13 +97,15 @@ void Dungeon::show_choices() {
                 useItem();
                 break;
             case 6:
-                cout << left << "Health" << setw(20) << "Stamina" << setw(20) << "Moves" << setw(20) << "Defense" << setw(20) << "Armor" << endl;
-                cout << player->getHealth() << setw(20) << player->getStamina() << setw(20) << player->getMoves() << setw(20) << player->getDefense() << setw(20) << player->getArmor() << endl;
+                cout << left << setw(10) << "Health" << setw(10) << "Stamina" << setw(10) << "Moves" << setw(10) << "Defense" << setw(10) << "Armor" << endl;
+                cout << left << setw(10) << player->getHealth() << setw(10) << player->getStamina() << setw(10) << player->getMoves() << setw(10) << player->getDefense() << setw(10) << player->getArmor() << endl;break;
+            case 7:
+                current_room->printEnemies();
                 break;
             default:
                 cout << "Invalid choice" << endl;   
         }
-    } while (choice < 1 || choice > 6);
+    } while (choice < 1 || choice > 7);
 }
 
 void Dungeon::start() {
@@ -161,20 +167,20 @@ void Dungeon::useItem() {
         item.setName(item_name);
     }
 
-    if (item_name == "Elxir of Vitalis") {
+    if (item_name == "Elixir of Vitalis") {
         player->setHealth(player->getHealth() + 10);
     } else if (item_name == "Vigor Draught") {
         player->setStamina(player->getStamina() + 10);
     } else if (item_name == "Doomfang Blade") {
         Treasure* sword = new Treasure();
-        sword->setName("sword");
-        sword->setAttack(10);
+        sword->setName("Doomfang Blade");
+        sword->setAttack(20);
         sword->setDefense(0);
         player->setCurrentWeapon(sword);
     } else if (item_name == "Phantom Piercer") {
         Treasure* arrow = new Treasure();
-        arrow->setName("arrow");
-        arrow->setAttack(5);
+        arrow->setName("Phantom Piercer");
+        arrow->setAttack(15);
         arrow->setDefense(0);
         player->setCurrentWeapon(arrow);
     } else if (item_name == "Eclipse Plate") {
@@ -198,11 +204,11 @@ void Dungeon::show_choice_treasures() {
         cout << "No treasures in the room" << endl;
     } else {
         cout << "If its a weapon, the attack is the attack power of the weapon otherwise it is 0" << endl;
-        cout << "If its armor, the defense is the defense power of the armor otherwise it is 0" << endl;
+        cout << "If its armor, the defense is the defense power of the armor otherwise it is 0" << endl << endl;
 
-        cout << "Name" << setw(20) << "Description" << setw(50) << "Attack" << setw(20) << "Defense" << endl;
+        cout << left << setw(20) << "Name" << setw(60) << "Description" << setw(20) << "Attack" << setw(20) << "Defense" << endl;
         for (unsigned int i = 0; i < current_room->getNumTreasures() - 1; i++) {
-            cout << current_room->getTreasure()[i].getName() << setw(5) << " " << current_room->getTreasure()[i].getDescription() << setw(10) << current_room->getTreasure()[i].getAttack() << setw(20) << current_room->getTreasure()[i].getDefense() << endl;
+            cout << left << setw(20) << current_room->getTreasure()[i].getName() << setw(60) << current_room->getTreasure()[i].getDescription() << setw(20) << current_room->getTreasure()[i].getAttack() << setw(20) << current_room->getTreasure()[i].getDefense() << endl;
         }
 
         cout << "Would you like to pick up the " << current_room->getTreasure()[current_room->getNumTreasures() - 1].getName() << " which is an artifact? (yes/no): ";
@@ -232,7 +238,7 @@ void Dungeon::show_choice_treasures() {
 
             if (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer") {
                 cout << "Invalid weapon. Please enter a valid weapon: ";
-                cin >> weapon_choice;
+                getline(cin, weapon_choice);
             }
         } while (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer");
 
