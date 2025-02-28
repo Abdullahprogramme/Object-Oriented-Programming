@@ -1,10 +1,11 @@
 #include "Player.hpp"
    
+#include <iostream>
 using namespace std;
 
 Player::Player() {
-    health = 100;
-    attack = 10;
+    health = 50;
+    attack = 5;
     defense = 5;
     armor = 0;
     stamina = 100;
@@ -15,6 +16,7 @@ Player::Player() {
 
 Player::~Player() {
     delete inventory;
+    cout << "Deleted player" << endl;
 }
 
 int Player::getHealth() {
@@ -66,6 +68,8 @@ Inventory* Player::getInventory() {
 }
 
 void Player::Attack(Enemy* enemy) {
+    // While attacking checks if the player has a weapon equipped
+    // If the player has a weapon equipped, the weapon's attack is used
     enemy->setHealth(enemy->getHealth() - (current_weapon != nullptr ? current_weapon->getAttack() : attack));
     this->stamina -= 10;
     if (enemy->getHealth() <= 0) {
@@ -80,9 +84,12 @@ void Player::Defend(Enemy* enemy) {
         damage = 0;
     }
     
+    // While defending checks if the player has armor equipped
+    // If the player has armor equipped, the armor's defense is used
     if (armor > 0) {
         armor -= damage;
         if (armor < 0) {
+            health += armor;
             armor = 0;
         }
     } else {
@@ -93,10 +100,12 @@ void Player::Defend(Enemy* enemy) {
     this->moves--;
 }
 
+// calls the Add function from the Inventory class
 void Player::AddToInventory(Treasure item) {
     inventory->Add(item);
 }
 
+// calls the Remove function from the Inventory class
 void Player::RemoveFromInventory(Treasure item) {
     inventory->Remove(item);
 }
