@@ -24,6 +24,7 @@ Room::~Room() {
     delete enemies;
     delete treasures;
     delete enemy_queue;
+    cout << "Deleted room" << endl;
 }
 
 string Room::getName() {
@@ -84,8 +85,12 @@ void Room::printEnemies() {
         cout << "No enemies in the room" << endl;
     } else {
         cout << left << setw(20) << "Name" << setw(10) << "Health" << setw(10) << "Attack" << endl;
-        for (unsigned int i = 0; i < enemy_queue->size(); i++) {
+        for (unsigned int i = 0; i < 3; i++) {
             Enemy* enemy = enemy_queue->dequeue();
+            if (enemy == nullptr) {
+                enemy_queue->enqueue(enemy);
+                continue;
+            }
             cout << left << setw(20) << enemy->getName() << setw(10) << enemy->getHealth() << setw(10) << enemy->getAttack() << endl;
             enemy_queue->enqueue(enemy);
         }
@@ -100,8 +105,10 @@ void Room::attackEnemies(Player* player) {
 
     unsigned int initial_num_enemies = num_enemies;
 
+    // looping through the available enemies in the room
     for (unsigned int i = 0; i < initial_num_enemies; ++i) {
 
+        // getting the enemy from the queue and if the enemy is null(meaning it has been defeated), we continue to the next enemy
         Enemy* enemy = enemy_queue->dequeue();
         if (enemy == nullptr) {
             continue;
@@ -110,11 +117,13 @@ void Room::attackEnemies(Player* player) {
         cout << "Attacking " << enemy->getName() << ".... and it";
         player->Attack(enemy);
 
+        // checking if the enemy has been defeated
         if (enemy->getHealth() <= 0) {
             cout << " has been defeated" << endl;
-        } else {
-            cout << " has " << enemy->getHealth() << " health left" << endl;
             enemy_queue->enqueue(nullptr);
+        } else { // if the enemy has not been defeated, we enqueue the enemy back into the queue
+            cout << " has " << enemy->getHealth() << " health left" << endl;
+            enemy_queue->enqueue(enemy);
         }
 
         if (enemy->getHealth() > 0) {
@@ -128,10 +137,12 @@ void Room::attackEnemies(Player* player) {
     }
 
     // making the current weapon null after the attack
+    if (player->getCurrentWeapon() != nullptr) {
+        cout << "--------------------------------" << endl;
+        cout << "You have used your current weapon, it has been discarded" << endl;
+        cout << "--------------------------------" << endl;
+    }
     player->setCurrentWeapon(nullptr);
-    cout << "--------------------------------" << endl;
-    cout << "You have used your current weapon, it has been discarded" << endl;
-    cout << "--------------------------------" << endl;
 
     if (!enemy_queue->isEmpty()) {
         cout << "There are still enemies left after the battle, you probably need to come back and attack them" << endl;
