@@ -20,7 +20,7 @@ void make_enemies(Room* room) {
     srand(time(0));
 
     static unordered_map<string, int> enemyHealths = {{"Shadow Stalker", 10}, {"Hollow Sentinel", 15}, {"Dark Knight", 20}, {"Soul Eater", 25}, {"Death Bringer", 30}, {"Bloodfang Berserker", 35}};
-    static unordered_map<string, int> enemyAttacks = {{"Shadow Stalker", 5}, {"Hollow Sentinel", 6}, {"Dark Knight", 7}, {"Soul Eater", 8}, {"Death Bringer", 9}, {"Bloodfang Berserker", 10}};
+    static unordered_map<string, int> enemyAttacks = {{"Shadow Stalker", 7}, {"Hollow Sentinel", 8}, {"Dark Knight", 9}, {"Soul Eater", 10}, {"Death Bringer", 11}, {"Bloodfang Berserker", 12}};
 
     static string enemyNames[6] = {"Shadow Stalker", "Hollow Sentinel", "Dark Knight", "Soul Eater", "Death Bringer", "Bloodfang Berserker"};
     
@@ -64,7 +64,7 @@ void make_treasures(Room* room) {
 
     // list of treasures to randomly choose from
     static string WeaponsNames[2] = {"Doomfang Blade", "Phantom Piercer"};
-    static string treasureNames[4] = {"Elxir of Vitalis", "Vigor Draught", "Eclipse Plate", "Aegis of the Lost"};
+    static string treasureNames[4] = {"Eilxir of Vitalis", "Vigor Draught", "Eclipse Plate", "Aegis of the Lost"};
 
     // making treasures
     Treasure* treasure1 = new Treasure();
@@ -134,8 +134,9 @@ void make_treasures(Room* room) {
 
 void make_dungeon() {
     Dungeon* dungeon = new Dungeon();
+
     Room* room1 = new Room();
-    room1->setName("The Forsaken Chamber ");
+    room1->setName("The Forsaken Chamber");
     room1->setDescription("A room filled with the echoes of past prisoners, their whispers guiding or deceiving.");
     make_enemies(room1);
     make_treasures(room1);
@@ -154,7 +155,6 @@ void make_dungeon() {
     make_enemies(room3);
     make_treasures(room3);
     dungeon->add_room(room3);
-
 
     dungeon->start();
 }
