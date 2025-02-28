@@ -1,5 +1,6 @@
 #include "Enemy.hpp"
 
+#include <iostream>
 using namespace std;
 
 Enemy::Enemy() {
@@ -8,6 +9,7 @@ Enemy::Enemy() {
 }
 
 Enemy::~Enemy() {
+    cout << "Deleted enemy" << endl;
 }
 
 string Enemy::getName() {
