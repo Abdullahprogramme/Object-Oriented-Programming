@@ -14,8 +14,10 @@ Inventory::Inventory(int size, int capacity) {
 Inventory::~Inventory() {
     for (int i = 0; i < size; i++) {
         delete &arr[i];
+        cout << "Deleted treasure " << i << endl;
     }
     delete[] arr;
+    cout << "Deleted inventory" << endl;
 }
 
 void Inventory::Resize() {
@@ -28,6 +30,7 @@ void Inventory::Resize() {
     capacity *= 2;
 }
 
+// Adds a treasure to the inventory and resizes the inventory if it is full
 void Inventory::Add(Treasure item) {
     if (size == capacity) {
         Resize();
@@ -36,10 +39,14 @@ void Inventory::Add(Treasure item) {
     size++;
 }
 
+// This is the overloaded operator for the Inventory class
+// It checks if the name of the treasure in the inventory is the same as the name of the treasure being compared to the inventory
+// If the names are the same, it returns true, otherwise it returns false
 bool Inventory::operator==(const Treasure& other) const {
     return name == other.getName();
 }
 
+// Removes a treasure from the inventory
 void Inventory::Remove(Treasure item) {
     for (int i = 0; i < size; i++) {
         if (arr[i] == item) {
