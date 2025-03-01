@@ -61,7 +61,7 @@ void Dungeon::previous_to_check() {
 void Dungeon::show_choices() {
     cout << "--------------------------------" << endl;
     cout << left << setw(20) << "Room Name" << setw(20) << "Room Description" << endl;
-    cout << setw(20) << "You are in the " << current_room->getName() << setw(20) << current_room->getDescription() << endl << endl;
+    cout << setw(20) << current_room->getName() << setw(20) << current_room->getDescription() << endl << endl;
     cout << "What would you like to do? Enter the number of the choice" << endl;
     cout << "1. Attack enemies" << endl;
     cout << "2. Move to previous room" << endl;
@@ -129,13 +129,14 @@ void Dungeon::start() {
     to_check = To_Check->get_current();
     show_choice_treasures();
     while (player->getHealth() > 0 && player->getMoves() > 0) {
+        show_choices();
+
         if (isGameOver()) {
             cout << "You have defeated all the enemies" << endl;
             cout << "You have won the game" << endl;
             break;
         }
 
-        show_choices();
     }
 
     cout << "Game over" << endl;
@@ -226,7 +227,7 @@ void Dungeon::show_choice_treasures() {
             cout << "You chose not to pick up the " << current_room->getTreasure()[current_room->getNumTreasures() - 1].getName() << endl;
         }
 
-        cout << "Pick one of the weapons given above: ";
+        cout << "Pick one of the weapons or defense given above: ";
         string weapon_choice;
         cin.ignore();
         getline(cin, weapon_choice);
@@ -240,40 +241,43 @@ void Dungeon::show_choice_treasures() {
                 }
             }
 
-            if (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer") {
+            if (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer" && weapon_choice != "Eclipse Plate" && weapon_choice != "Aegis of the Lost" && weapon_choice != "Vigor Draught" && weapon_choice != "Elixir of Vitalis") {
                 cout << "Invalid weapon. Please enter a valid weapon: ";
                 getline(cin, weapon_choice);
             }
-        } while (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer");
+        } while (weapon_choice != "Doomfang Blade" && weapon_choice != "Phantom Piercer" && weapon_choice != "Eclipse Plate" && weapon_choice != "Aegis of the Lost" && weapon_choice != "Vigor Draught" && weapon_choice != "Elixir of Vitalis");
 
         cout << weapon_choice << " picked up" << endl;
     }
 }
 
 bool Dungeon::isGameOver() {
-    // checking if all rooms have all enemies health <= 0
-    // if so, return true
-    // else return false
+    // Save the current state of to_check
+    DLL* originalToCheck = To_Check;
+    Room* originalRoom = to_check;
+    bool allEnemiesDefeated = false;
 
-    for (int i = 0; i < 3; i++) {
-        // loop through enemies of this room
-        for (int j = 0; j < 3; j++) {
-            if (to_check->getEnemies() != nullptr) {
-                if (to_check->getEnemies()[j].getHealth() > 0) {
-                    return false;
-                }
-            }
+    // Iterate through all rooms
+    do {
+    
+        if (to_check->EnemiesDefeated) {
+            allEnemiesDefeated = true;
+
+            // Restore the original state of to_check
+            To_Check = originalToCheck;
+            to_check = originalRoom;
+            
+            return allEnemiesDefeated;
+        } else {
+            allEnemiesDefeated = false;                
         }
 
-        if (i != 2) {
-            next_to_check();
-        }
-    }
+        next_to_check();
+    } while (To_Check->peek_next() != nullptr);
 
-    // now since all enemies health <= 0 we can return true but first make to_check pointer come back to the first room
-    for (int i = 0; i < 2; i++) {
-        previous_to_check();
-    }
+    // Restore the original state of to_check
+    To_Check = originalToCheck;
+    to_check = originalRoom;
 
-    return true;
+    return allEnemiesDefeated;
 }
