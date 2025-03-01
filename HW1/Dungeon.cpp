@@ -35,13 +35,17 @@ void Dungeon::add_room(Room* room) {
 void Dungeon::next_room() {
     dungeon->next_room();
     current_room = dungeon->get_current();
-    room_stack->push(current_room);
+    if (current_room != nullptr) {
+        room_stack->push(current_room);
+    }
 }
 
 void Dungeon::previous_room() {
     dungeon->previous_room();
     current_room = dungeon->get_current();
-    room_stack->pop();
+    if (current_room != nullptr) {
+        room_stack->pop();
+    }
 }
 
 void Dungeon::next_to_check() {
@@ -254,8 +258,10 @@ bool Dungeon::isGameOver() {
     for (int i = 0; i < 3; i++) {
         // loop through enemies of this room
         for (int j = 0; j < 3; j++) {
-            if (to_check->getEnemies()[j].getHealth() > 0) {
-                return false;
+            if (to_check->getEnemies() != nullptr) {
+                if (to_check->getEnemies()[j].getHealth() > 0) {
+                    return false;
+                }
             }
         }
 
@@ -265,7 +271,7 @@ bool Dungeon::isGameOver() {
     }
 
     // now since all enemies health <= 0 we can return true but first make to_check pointer come back to the first room
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         previous_to_check();
     }
 
