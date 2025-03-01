@@ -1,0 +1,5 @@
+Challenges:
+1. I made the both the animal and the pet class abstract so basically I struggled to get to know the the symbols and signs that represented these classes in the class diagram.
+
+How I overcame:
+1. I asked my friend and TA to first tell me and then I made the Animal class not abstract and worked on it.
