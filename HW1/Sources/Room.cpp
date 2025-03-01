@@ -123,7 +123,6 @@ void Room::attackEnemies(Player* player) {
         if (enemy->getHealth() <= 0) {
             cout << " has been defeated" << endl;
             enemy_queue->enqueue(nullptr);
-            allEnemiesDefeated = true;
         } else { // if the enemy has not been defeated, we enqueue the enemy back into the queue
             cout << " has " << enemy->getHealth() << " health left" << endl;
             enemy_queue->enqueue(enemy);
