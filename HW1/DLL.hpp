@@ -12,7 +12,7 @@ class DLL_node {
         DLL_node* previous;
 
         DLL_node() {
-            delete room; // Free the memory allocated for the Room object
+            // delete room; // Free the memory allocated for the Room object
         }
 };
 
