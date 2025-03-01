@@ -12,10 +12,6 @@ Inventory::Inventory(int size, int capacity) {
 }
 
 Inventory::~Inventory() {
-    for (int i = 0; i < size; i++) {
-        delete &arr[i];
-        cout << "Deleted treasure " << i << endl;
-    }
     delete[] arr;
     cout << "Deleted inventory" << endl;
 }
