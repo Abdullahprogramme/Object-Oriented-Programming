@@ -10,7 +10,7 @@ Player::Player() {
     armor = 0;
     stamina = 100;
     current_weapon = nullptr;
-    moves = 30;
+    moves = 20;
     inventory = new Inventory(0, 10);
 }
 
