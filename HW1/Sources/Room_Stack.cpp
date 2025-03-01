@@ -5,12 +5,17 @@ using namespace std;
 
 Stack::Stack(int capacity) : capacity(capacity), top(-1) {
     stack = new Room*[capacity];
+    for (int i = 0; i < capacity; ++i) {
+        stack[i] = nullptr; // Initialize pointers to nullptr
+    }
 }
 
 Stack::~Stack() {
     for (int i = 0; i < capacity; i++) {
-        delete stack[i];
-        cout << "Deleted room " << i << endl;
+        if (stack[i] != nullptr) {
+            delete stack[i]; // Delete each dynamically allocated Room object
+            cout << "Deleted room " << i << endl;
+        }
     }
     delete[] stack;
     cout << "Deleted stack" << endl;
