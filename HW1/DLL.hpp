@@ -35,6 +35,7 @@ class DLL {
         void next_room();
         void previous_room();
         Room* get_current();
+        Room* peek_next();
 };
 
 #endif // DLL_HPP
