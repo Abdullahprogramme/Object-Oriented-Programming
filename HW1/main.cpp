@@ -148,7 +148,6 @@ void make_dungeon() {
     make_enemies(room2);
     make_treasures(room2);
     dungeon->add_room(room2);
-    cout << "Room 2: added" << endl;
 
     Room* room3 = new Room();
     room3->setName("The Void Nexus");
@@ -156,7 +155,6 @@ void make_dungeon() {
     make_enemies(room3);
     make_treasures(room3);
     dungeon->add_room(room3);
-    cout << "Room 3: added" << endl;
 
     dungeon->start();
 }
