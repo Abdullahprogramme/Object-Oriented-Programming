@@ -18,6 +18,7 @@ Room::Room() {
     treasures = nullptr;
     num_treasures = 0;
     enemy_queue = nullptr;
+    EnemiesDefeated = false; 
 }
 
 Room::~Room() {
@@ -104,6 +105,7 @@ void Room::attackEnemies(Player* player) {
     }
 
     unsigned int initial_num_enemies = num_enemies;
+    bool allEnemiesDefeated = true;
 
     // looping through the available enemies in the room
     for (unsigned int i = 0; i < initial_num_enemies; ++i) {
@@ -121,9 +123,11 @@ void Room::attackEnemies(Player* player) {
         if (enemy->getHealth() <= 0) {
             cout << " has been defeated" << endl;
             enemy_queue->enqueue(nullptr);
+            allEnemiesDefeated = true;
         } else { // if the enemy has not been defeated, we enqueue the enemy back into the queue
             cout << " has " << enemy->getHealth() << " health left" << endl;
             enemy_queue->enqueue(enemy);
+            allEnemiesDefeated = false;
         }
 
         if (enemy->getHealth() > 0) {
@@ -144,9 +148,10 @@ void Room::attackEnemies(Player* player) {
     }
     player->setCurrentWeapon(nullptr);
 
-    if (!enemy_queue->isEmpty()) {
-        cout << "There are still enemies left after the battle, you probably need to come back and attack them" << endl;
-    } else {
+    if (allEnemiesDefeated == true) {
         cout << "All enemies have been defeated, this room has been cleared" << endl;
+        EnemiesDefeated = true;
+    } else {
+        cout << "There are still enemies left after the battle, you probably need to come back and attack them" << endl;
     }
 }
