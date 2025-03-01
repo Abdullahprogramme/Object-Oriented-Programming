@@ -147,6 +147,9 @@ void Dungeon::start() {
     }
 
     cout << "Thank you for playing" << endl;
+
+    // Freeing the memory by calling the destructor
+    delete this;
 }
 
 void Dungeon::useItem() {
