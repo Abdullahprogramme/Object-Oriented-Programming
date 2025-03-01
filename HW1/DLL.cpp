@@ -41,15 +41,27 @@ void DLL::add_room(Room* room) {
 void DLL::next_room() {
     if (current->next != nullptr) {
         current = current->next;
+    } else {
+        cout << "No next room" << endl;
     }
 }
 
 void DLL::previous_room() {
     if (current->previous != nullptr) {
         current = current->previous;
+    } else {
+        cout << "No previous room" << endl;
     }
 }
 
 Room* DLL::get_current() {
     return current->room;
+}
+
+Room* DLL::peek_next() {
+    if (current->next != nullptr) {
+        return current->next->room;
+    } else {
+        return nullptr;
+    }
 }
