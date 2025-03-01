@@ -21,6 +21,8 @@ class Room {
         Enemy_Queue* enemy_queue;
 
     public:
+        bool EnemiesDefeated;
+
         // Getters and setters
         string getName();
         void setName(string name);
