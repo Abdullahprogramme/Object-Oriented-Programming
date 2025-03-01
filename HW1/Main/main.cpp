@@ -157,6 +157,9 @@ void make_dungeon() {
     dungeon->add_room(room3);
 
     dungeon->start();
+
+    // Calling the destructor of Dungeon
+    delete dungeon;
 }
 
 int main() {
