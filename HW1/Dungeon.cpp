@@ -221,7 +221,7 @@ void Dungeon::show_choice_treasures() {
         if (choice == "yes") {
             player->getInventory()->Add(current_room->getTreasure()[current_room->getNumTreasures() - 1]);
             cout << current_room->getTreasure()[current_room->getNumTreasures() - 1].getName() << " picked up" << endl;
-            current_room->setNumTreasures(current_room->getNumTreasures() - 1);
+            // current_room->setNumTreasures(current_room->getNumTreasures() - 1);
         } else {
             cout << "You chose not to pick up the " << current_room->getTreasure()[current_room->getNumTreasures() - 1].getName() << endl;
         }
@@ -234,7 +234,7 @@ void Dungeon::show_choice_treasures() {
             for (unsigned int i = 0; i < current_room->getNumTreasures(); i++) {
                 if (current_room->getTreasure()[i].getName() == weapon_choice) {
                     player->getInventory()->Add(current_room->getTreasure()[i]);
-                    current_room->setNumTreasures(current_room->getNumTreasures() - 1);
+                    // current_room->setNumTreasures(current_room->getNumTreasures() - 1);
                     cout << "Weapon picked up" << endl;
                     break;
                 }
