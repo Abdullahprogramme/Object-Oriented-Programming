@@ -33,9 +33,20 @@ class Base {
         virtual void do_something() {
             cout << i << " does something" << endl;
         }  
+
+        void func() {
+            cout << "Base func" << endl;
+        }
 };
 
-class Derived : public Base {
+class Base2 {
+    public:
+        void func() {
+            cout << "Base2 func" << endl;
+        }
+};
+
+class Derived : public Base, public Base2 {
     private:
         string k;
 
@@ -69,4 +80,10 @@ int main() {
     Base *b_ptr = new Derived("Derived", 2, "Derived");
     b_ptr->do_something();
 
+    cout << endl;
+
+    Derived d2("Derived", 2, "Derived");
+    d2.Base2::func();
+
     return 0;
+}
