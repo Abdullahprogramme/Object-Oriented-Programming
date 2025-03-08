@@ -1,0 +1,20 @@
+Observation 1:
+
+The output is:
+Base Constructor
+Derived Constructor
+Base Destructor
+
+So no, the Derived Class Destructor wasn't called because when the delete statement is used it only calls the destructor of base class since the pointer is of type Base* and not Derived*.
+
+----------------------------------------------------------------
+
+Observation 2:
+
+The output is:
+Base Constructor
+Derived Constructor
+Derived Destructor
+Base Destructor
+
+This time the Derived Destructor is called first and then the Base Destructor since we made it a virtual destructor which ensures that the derived destructor is called too as it now overrides the destructors.
