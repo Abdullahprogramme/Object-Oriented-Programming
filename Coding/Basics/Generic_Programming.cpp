@@ -40,6 +40,29 @@ class Pair {
         }
 };
 
+// - Specialization of class template
+template <>
+class Pair<string> {
+    private:
+        string first;
+        string second;
+
+    public:
+        Pair(string first, string second) : first(first), second(second) {}
+        void Display() {
+            cout << "First: " << first << ", Second: " << second << endl;
+        }
+};
+
+// - Variadic templates
+template <typename T, typename... Args>
+void Print(T first, Args... args) {
+    cout << first << " ";
+    if constexpr (sizeof...(args) > 0) {
+        Print(args...); // Recursive call with unpacked arguments
+    }
+}
+
 // - Function pointer
 void Run_1(void (*swapFunc)(int &, int &)) {
     int a = 5, b = 10;
@@ -62,6 +85,15 @@ void Run_1(void (*swapFunc)(int &, int &)) {
 template <typename T>
 void Run_2(Pair<T> *pair) {
     pair->Display();
+}
+
+void multiply(int a, int b) {
+    cout << "Multiplication: " << a * b << endl;
+}
+
+void process(int a, int b, void (*func)(int, int)) {
+    cout << "Processing: " << a << ", " << b << endl;
+    func(a, b); // Call the function pointer
 }
 
 int main() {
@@ -94,5 +126,19 @@ int main() {
     int num = 5;
     cout << "Multiplying " << num << " by factor " << factor << ": " << lambdaMultWithCapture(num) << endl;
 
+    Pair<string> stringPairLambda("Hello", "World");
+    auto lambdaDisplay = [&stringPairLambda]() {
+        stringPairLambda.Display();
+    };
+    lambdaDisplay(); // Call the lambda function to display the string pair
+
+    // Variadic template example
+    cout << "Variadic template output: ";
+    Print(1, 2.5, "Hello", 'A', 3.14); // Call the variadic template function with different types
+    cout << endl;
+
+    void (*funcPtr)(int, int) = multiply;
+    process(5, 10, funcPtr); // Call the function pointer with two integers
+    
     return 0;
 }
