@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 // Templates: 
@@ -91,9 +92,20 @@ void multiply(int a, int b) {
     cout << "Multiplication: " << a * b << endl;
 }
 
+void add(int a, int b) {
+    cout << "Addition: " << a + b << endl;
+}
+
 void process(int a, int b, void (*func)(int, int)) {
     cout << "Processing: " << a << ", " << b << endl;
     func(a, b); // Call the function pointer
+}
+
+// - Array of function pointers
+void Run_3(void (*funcArr[])(int, int), int size) {
+    for (int i = 0; i < size; ++i) {
+        funcArr[i](5, 10); // Call each function pointer in the array
+    }
 }
 
 int main() {
@@ -118,10 +130,27 @@ int main() {
     lambdaSwap(a, b);
     cout << "After lambda swap: a = " << a << ", b = " << b << endl;
 
+    /*
+    Capture Clause:
+    [] - no capture
+    [&] - capture all by reference
+    [=] - capture all by value
+    [x] - capture x by value
+    [&x] - capture x by reference
+    [=, &x] - capture all by value and x by reference
+    [&, x] - capture all by reference and x by value
+    [this] - capture this pointer
+    */
+
     int factor = 2;
-    auto lambdaMultWithCapture = [factor](int a) {
+    auto lambdaMultWithCapture = [factor](int a) -> int {
         return a * factor;
     };
+
+    // writing this in pointer function style
+    // int (*lambdaMultWithCapture)(int) = [factor](int a) {
+    //     return a * factor;
+    // };
 
     int num = 5;
     cout << "Multiplying " << num << " by factor " << factor << ": " << lambdaMultWithCapture(num) << endl;
@@ -139,6 +168,21 @@ int main() {
 
     void (*funcPtr)(int, int) = multiply;
     process(5, 10, funcPtr); // Call the function pointer with two integers
+
+    // Calling Run_3 with an array of function pointers
+    void (*funcArr[])(int, int) = {multiply, add};
+    int size = sizeof(funcArr) / sizeof(funcArr[0]);
+    Run_3(funcArr, size); // Call the array of function pointers
+    
+    int arr[5] = {4, 10, 2, 1, -1};
+    qsort(arr, 5, sizeof(arr[0]), [](const void *a, const void *b) {
+        return (*(int*)a - *(int*)b); // Compare two integers
+    });
+    cout << "Sorted array: ";
+    for (int i = 0; i < 5; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
     
     return 0;
 }
