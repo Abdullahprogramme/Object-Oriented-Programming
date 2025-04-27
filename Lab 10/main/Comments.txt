@@ -1,0 +1,26 @@
+The fastest sorting algorithm is **Shell Sort**, with an average time of 27.7508 ms over 5 runs.
+
+1. **Insertion Sort**
+   - Average Time: 6835.17 ms
+   - Time Complexity: O(n^2) in the worst and average cases. Best case is O(n) when the array is already sorted.
+   - Comment: Insertion Sort is inefficient for large datasets due to its quadratic time complexity.
+
+2. **Selection Sort**
+   - Average Time: 13115.3 ms
+   - Time Complexity: O(n^2) for all cases (best, average, and worst).
+   - Comment: Selection Sort is slower than Insertion Sort in practice and is not suitable for large datasets.
+
+3. **Shell Sort**
+   - Average Time: 27.7508 ms
+   - Time Complexity: Depends on the gap sequence used. Typically, it ranges from O(n log n) to O(n^2). With optimized gap sequences, it performs much better than quadratic algorithms.
+   - Comment: Shell Sort is significantly faster than both Insertion Sort and Selection Sort, making it a good choice for medium-sized datasets.
+
+4. **Binary Tree Sort**
+   - Average Time: 138.196 ms
+   - Time Complexity: O(n log n) in the average and best cases, but O(n^2) in the worst case if the tree becomes unbalanced.
+   - Comment: Binary Tree Sort is efficient for balanced data but can degrade in performance with unbalanced input.
+
+**Conclusion:**
+Shell Sort is the fastest algorithm in this test, likely due to its efficient handling of partially sorted data and reduced comparisons. 
+Binary Tree Sort is also efficient but slower than Shell Sort. 
+Both Insertion Sort and Selection Sort are significantly slower due to their quadratic time complexity, making them unsuitable for large datasets.
