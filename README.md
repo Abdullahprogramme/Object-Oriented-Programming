@@ -38,11 +38,9 @@ g++ -o maze.exe Sources/*.cpp  Main/main.cpp -I C:\raylib1\include -L C:\raylib1
 
 
 ### File Structure
-.
+```
 ├── Headers/                # Header files for classes
-
 │   ├── Enemy.hpp           # Enemy class
-
 │   ├── Player.hpp          # Player class
 │   ├── Room.hpp            # Room class
 │   ├── Inventory.hpp       # Inventory class
@@ -57,6 +55,7 @@ g++ -o maze.exe Sources/*.cpp  Main/main.cpp -I C:\raylib1\include -L C:\raylib1
 │   └── main.cpp            # Main game loop
 ├── README.md               # Project documentation
 └── raylib.h                # raylibs file
+```
 
 ### Steps to run the game:
 1. 
