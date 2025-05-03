@@ -37,7 +37,9 @@ class BucketSorter {
                     char firstChar = str[0];
                     if (firstChar >= 'a' && firstChar <= 'z') {
                         buckets[firstChar - 'a'].push_back(str);
-                    }
+                    } else if (firstChar >= 'A' && firstChar <= 'Z') {
+                        buckets[firstChar - 'A'].push_back(str);
+                    } 
                 }
             }
         
@@ -68,7 +70,7 @@ class BucketSorter {
                     word.erase(remove_if(word.begin(), word.end(), [](char c) { return ispunct(c); }), word.end());
 
                     // Convert to lowercase for case-insensitive sorting
-                    transform(word.begin(), word.end(), word.begin(), ::tolower);
+                    // transform(word.begin(), word.end(), word.begin(), ::tolower);
 
                     words.push_back(word);
                 }
