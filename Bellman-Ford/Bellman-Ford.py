@@ -14,12 +14,12 @@ class Graph:
         else:
             raise ValueError("Vertex index out of bounds")
 
-        def add_vertex(self):
-            self.V += 1
-            for row in self.adjacency_matrix:
-                row.append(float('inf'))
-            self.adjacency_matrix.append([float('inf')] * self.V)
-            self.adjacency_matrix[-1][-1] = 0
+    def add_vertex(self):
+        self.V += 1
+        for row in self.adjacency_matrix:
+            row.append(float('inf'))
+        self.adjacency_matrix.append([float('inf')] * self.V)
+        self.adjacency_matrix[-1][-1] = 0
 
     def bellman_ford(self, start):
         if start < 0 or start >= self.V:
